@@ -2,23 +2,23 @@
 
 UTILIZATION_THRESHOLD = 0.9
 
-F_peak = [ #GFLOPS
-    5*100,   # device 0
-    2*1000,  # device 1
-    4*10000  # device 2
+F_peak = [ #main
+    5*100,   #100 GFLOPS
+    2*1000,  #1000 GFLOPS
+    4*10000  #10000 GFLOPS
 ]
 
-Bw_peak = [  #GB/s   
+Bw_peak = [  #GB/s    #main
     25,      # device 0
     100,     # device 1
-    200      # device 2
+    200,     # device 2
 ]
 
 
-P_peak = [ 
-    60,     # device 0
-    80,     # device 1
-    200     # device 2 
+P_peak = [ #main
+    60,
+    80,
+    200
 ]
 
 
