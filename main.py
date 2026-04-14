@@ -70,10 +70,10 @@ class EdgeNode:
     def service_time(self, model: "MLModel"):
         eta_comp = 1
         eta_bw = 1
-        T_comp = model.required_flops/(eta_comp*self.available_flops)
-        T_mem = model.required_bw/(eta_bw*self.Bw_peak)
+        T_comp = round(model.required_flops/(eta_comp*self.available_flops), 5)
+        T_mem = round(model.required_bw/(eta_bw*self.Bw_peak), 5)
         srv_time = max(T_comp , T_mem)
-        srv_time = round(srv_time, 3)
+        srv_time = round(srv_time, 5)
         return srv_time
         
 
@@ -872,29 +872,29 @@ def main():
     round_alpha = [round(a,3) for a in ALPHA]
 
     models = [
-        MLModel(id=0, name="yolov8n", required_flops=8.7, required_bw = 12.8,accuracy= 0.3),  # YOLO models
-        MLModel(id=1, name="yolov8s", required_flops=28.6, required_bw = 44.8, accuracy= 0.4),
-        MLModel(id=2, name="yolov8m", required_flops=78.9, required_bw = 103.6, accuracy= 0.58), 
-        MLModel(id=3, name="yolov8l", required_flops=165.2, required_bw = 174.8, accuracy= 0.88),
-        MLModel(id=4, name="yolov8x", required_flops=257.8, required_bw = 272.8,  accuracy= 0.95)
+        MLModel(id=0, name="yolov8n", required_flops=8.7, required_bw = 12.8/1000.0,accuracy= 0.37),   # YOLO models
+        MLModel(id=1, name="yolov8s", required_flops=28.6, required_bw = 44.8/1000.0, accuracy= 0.45),
+        MLModel(id=2, name="yolov8m", required_flops=78.9, required_bw = 103.6/1000.0, accuracy= 0.5), 
+        MLModel(id=3, name="yolov8l", required_flops=165.2, required_bw = 174.8/1000.0, accuracy= 0.53),
+        MLModel(id=4, name="yolov8x", required_flops=257.8, required_bw = 272.8/1000.0,  accuracy= 0.54),
     ]
 
     # models = [
-    # MLModel(id=0, name="ResNet18",  required_flops=1.8,  required_bw=46.8, accuracy=0.69), #parameters=11.7M   #ResNet models
-    # MLModel(id=1, name="ResNet34",  required_flops=3.6,  required_bw=87.2, accuracy=0.73),  #parameters=21.8M
-    # MLModel(id=2, name="ResNet50",  required_flops=4.1,  required_bw=102.4, accuracy=0.761),  #parameters=25.6M
-    # MLModel(id=3, name="ResNet101", required_flops=7.8,  required_bw=178, accuracy=0.8),  ##parameters=44.5M
-    # MLModel(id=4, name="ResNet152", required_flops=11.6, required_bw=240.8, accuracy=0.9),  #parameters=60.2M#
+    # MLModel(id=0, name="ResNet18",  required_flops=1.8,  required_bw=46.8/1000.0, accuracy=0.69), #parameters=11.7M   #ResNet models
+    # MLModel(id=1, name="ResNet34",  required_flops=3.6,  required_bw=87.2/1000.0, accuracy=0.73),  #parameters=21.8M
+    # MLModel(id=2, name="ResNet50",  required_flops=4.1,  required_bw=102.4/1000.0, accuracy=0.761),  #parameters=25.6M
+    # MLModel(id=3, name="ResNet101", required_flops=7.8,  required_bw=178/1000.0, accuracy=0.8),  ##parameters=44.5M
+    # MLModel(id=4, name="ResNet152", required_flops=11.6, required_bw=240.8/1000.0, accuracy=0.9),  #parameters=60.2M#
     # ]
 
     # models = [
-    # MLModel(id=0, name="TinyBERT-4L", required_flops=1.2,  required_bw=58, accuracy=0.77),  # Params=14.5M   #BERT models
-    # MLModel(id=1, name="TinyBERT-6L", required_flops=11.3, required_bw=268, accuracy=0.8),  # Params=67.5M 
-    # MLModel(id=2, name="DistilBERT-4L", required_flops=7.6,  required_bw=208, accuracy=0.74),  # Params=52.2M 
-    # MLModel(id=3, name="DistilBERT-6L", required_flops=11.3, required_bw=248.8, accuracy=0.77),  # Params=66.6M 
-    # MLModel(id=4, name="MobileBERT",      required_flops=5.7, required_bw=101.2, accuracy=0.76),  # Params=25.3M 
-    # MLModel(id=5, name="MobileBERTTINY",  required_flops=3.1, required_bw=60.4, accuracy=0.75),  # Params=15.1M 
-    # MLModel(id=6, name="BERT-Base",  required_flops=22.5, required_bw=436, accuracy=0.8),  # Params=15.1M
+    # MLModel(id=0, name="TinyBERT-4L", required_flops=1.2,  required_bw=58/1000.0, accuracy=0.77),  # Params=14.5M   #BERT models
+    # MLModel(id=1, name="TinyBERT-6L", required_flops=11.3, required_bw=268/1000.0, accuracy=0.8),  # Params=67.5M 
+    # MLModel(id=2, name="DistilBERT-4L", required_flops=7.6,  required_bw=208/1000.0, accuracy=0.74),  # Params=52.2M 
+    # MLModel(id=3, name="DistilBERT-6L", required_flops=11.3, required_bw=248.8/1000.0, accuracy=0.77),  # Params=66.6M 
+    # MLModel(id=4, name="MobileBERT",      required_flops=5.7, required_bw=101.2/1000.0, accuracy=0.76),  # Params=25.3M 
+    # MLModel(id=5, name="MobileBERTTINY",  required_flops=3.1, required_bw=60.4/1000.0, accuracy=0.75),  # Params=15.1M 
+    # MLModel(id=6, name="BERT-Base",  required_flops=22.5, required_bw=436/1000.0, accuracy=0.8),  # Params=15.1M
     # ]
 
 
